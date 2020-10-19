@@ -10,7 +10,7 @@ pygame.init()
 screen = pygame.display.set_mode((800, 600))
 
 # Background
-background = pygame.image.load('1876.jpg')
+background = pygame.image.load('1876.jpg').convert()
 
 # Background sound
 mixer.music.load('background.wav')
@@ -22,7 +22,7 @@ icon = pygame.image.load('rocket-ship.png')
 pygame.display.set_icon(icon)
 
 # player info
-player_img = pygame.image.load('jet.png')
+player_img = pygame.image.load('jet.png').convert_alpha()
 playerX = 370
 playerY = 480
 playerX_change = 0
@@ -35,10 +35,10 @@ enemyX_change = []
 enemyY_change = []
 number_of_enemies = 6
 for i in range(number_of_enemies):
-    enemy_img.append(pygame.image.load('alien.png'))
+    enemy_img.append(pygame.image.load('alien.png').convert_alpha())
     enemyX.append(random.randint(0, 736))
     enemyY.append(random.randint(50, 150))
-    enemyX_change.append(7)
+    enemyX_change.append(4)
     enemyY_change.append(40)
 
 # Bullet info
@@ -128,7 +128,7 @@ while running:
     elif playerX >= 736:
         playerX = 736
 
-    # Creating a border for enemy and enemy movement
+    # Creating a border for game over text and enemy movement
     for i in range(number_of_enemies):
 
         # Game over text
@@ -137,13 +137,13 @@ while running:
                 enemyY[j] = 2000
             game_over_text()
             break
-
+          # Enemy movement
         enemyX[i] += enemyX_change[i]
         if enemyX[i] <= 0:
-            enemyX_change[i] = 7
+            enemyX_change[i] = 4
             enemyY[i] += enemyY_change[i]
         elif enemyX[i] >= 736:
-            enemyX_change[i] = -7
+            enemyX_change[i] = -4
             enemyY[i] += enemyY_change[i]
 
         # Collution
